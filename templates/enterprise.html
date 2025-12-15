@@ -4,198 +4,1389 @@
 
 {% block extra_css %}
 <style>
-/* ===== Enterprise Page Custom Styles ===== */
+/* ===============================
+   ENTERPRISE HERO
+================================ */
 
-/* Hero split layout */
 .enterprise-hero {
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(120deg, #0e0e0f, #151517 40%, #0e0e0f 80%);
+    color: #fff;
+}
+
+.enterprise-hero .section-container {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 60px;
-    padding: 80px 5%;
     max-width: 1200px;
     margin: auto;
+    padding: 100px 5%;
+    min-height: 520px;
 }
 
-.enterprise-text {
+.enterprise-hero .text {
     flex: 1;
     min-width: 320px;
 }
 
-.enterprise-text h1 {
+.enterprise-hero h1 {
     font-size: 2.6rem;
+    line-height: 1.2;
     font-weight: 700;
-    line-height: 1.25;
-    margin-bottom: 20px;
-    color: #000;
+    margin-bottom: 18px;
 }
 
-.enterprise-text p {
-    font-size: 1.1rem;
-    line-height: 1.65;
+.enterprise-hero .hero-lines {
+    font-size: 1.05rem;
+    line-height: 1.6;
+    color: #e0e0e0;
+}
+
+.enterprise-hero .hero-lines p {
+    margin-bottom: 6px;
+}
+
+.enterprise-hero .cta {
+    margin-top: 26px;
+    background: #fff;
+    color: #000;
+    border: none;
+    padding: 14px 30px;
+    border-radius: 0.2rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.15s ease;
+}
+
+.enterprise-hero .cta:hover {
+    background: #f2f2f2;
+    transform: translateY(-1px);
+}
+
+/* Carousel */
+.enterprise-carousel {
+    flex: 1;
+    max-width: 520px;
+    height: 420px;
+    overflow: hidden;
+    border-radius: 0.2rem;
+    position: relative;
+}
+
+.enterprise-carousel .track {
+    display: flex;
+    height: 100%;
+    transition: transform 0.6s ease-in-out;
+}
+
+.enterprise-carousel img {
+    min-width: 100%;
+    height: 100%;
+    object-fit: cover;
+    background: #222;
+    border-radius: 0.2rem;
+}
+
+/* Fade text */
+.hero-slide {
+    display: none;
+}
+
+.hero-slide.active {
+    display: block;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    .enterprise-hero {
+        background: #fff;
+        color: #111;
+    }
+
+    .enterprise-hero h1,
+    .enterprise-hero .hero-lines {
+        color: #111;
+    }
+
+    .enterprise-hero .cta {
+        background: #000;
+        color: #fff;
+        font-size: 12px;
+        padding: 10px 18px;
+    }
+
+    .enterprise-hero .section-container {
+        flex-direction: column;
+        text-align: center;
+        padding: 60px 5%;
+        gap: 30px;
+        min-height: auto;
+    }
+
+    .enterprise-hero h1 {
+        font-size: 1.3rem;
+    }
+
+    .enterprise-carousel {
+        width: 85%;
+        height: 0;
+        padding-bottom: 60%;
+    }
+
+    .enterprise-carousel .track {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+}
+
+/* ===============================
+   ENTERPRISE FIT SECTION
+================================ */
+
+.enterprise-fit {
+    background: #fff;
+    padding: 90px 5%;
+}
+
+.enterprise-fit h2 {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 14px;
+    color: #111;
+}
+
+.enterprise-fit .fit-intro {
+    text-align: center;
+    max-width: 720px;
+    margin: 0 auto 50px;
+    font-size: 1.05rem;
     color: #444;
 }
 
-.enterprise-image {
-    flex: 1;
+.fit-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px;
+    max-width: 1000px;
+    margin: auto;
+}
+
+.fit-card {
+    border: 1px solid #eee;
+    border-radius: 0.2rem;
+    padding: 30px 28px;
+    background: #fafafa;
+}
+
+.fit-card h3 {
+    font-size: 1.3rem;
+    margin-bottom: 18px;
+    font-weight: 700;
+    color: #111;
+}
+
+.fit-card ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.fit-card li {
+    position: relative;
+    padding-left: 22px;
+    margin-bottom: 14px;
+    font-size: 1.05rem;
+    color: #333;
+    line-height: 1.5;
+}
+
+.fit-card li::before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: #000;
+    font-size: 1.2rem;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    .enterprise-fit {
+        padding: 60px 5%;
+    }
+
+    .enterprise-fit h2 {
+        font-size: 1.1rem;
+    }
+
+    .enterprise-fit .fit-intro {
+        font-size: 0.9rem;
+        margin-bottom: 30px;
+    }
+
+    .fit-grid {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+
+    .fit-card {
+        padding: 22px 20px;
+    }
+
+    .fit-card h3 {
+        font-size: 1rem;
+    }
+
+    .fit-card li {
+        font-size: 0.9rem;
+    }
+}
+
+
+/* ===============================
+   ENTERPRISE SCOPE SECTION
+================================ */
+
+.enterprise-scope {
+    background: #fafafa;
+    padding: 90px 5%;
+}
+
+.enterprise-scope h2 {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: #111;
+}
+
+.enterprise-scope .scope-intro {
+    text-align: center;
+    max-width: 720px;
+    margin: 0 auto 60px;
+    font-size: 1.05rem;
+    color: #444;
+}
+
+.scope-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 36px;
+    max-width: 1100px;
+    margin: auto;
+}
+
+.scope-card {
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 0.2rem;
+    padding: 28px 24px;
+    text-align: center;
+}
+
+.scope-visual {
+    width: 100%;
+    height: 160px;
+    margin-bottom: 18px;
     display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f2f2f2;
+    border-radius: 0.2rem;
+    overflow: hidden;
+}
+
+.scope-visual img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.scope-card h3 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 14px;
+    color: #111;
+}
+
+.scope-card ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.scope-card li {
+    font-size: 1.05rem;
+    color: #333;
+    margin-bottom: 10px;
+    line-height: 1.5;
+}
+
+/* Boundary statement */
+.scope-boundary {
+    max-width: 820px;
+    margin: 60px auto 0;
+    padding: 18px 22px;
+    border: 1px solid #ddd;
+    border-radius: 0.2rem;
+    background: #fff;
+    text-align: center;
+    font-size: 1.05rem;
+    color: #222;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    .enterprise-scope {
+        padding: 60px 5%;
+    }
+
+    .enterprise-scope h2 {
+        font-size: 1.1rem;
+    }
+
+    .enterprise-scope .scope-intro {
+        font-size: 0.9rem;
+        margin-bottom: 30px;
+    }
+
+    .scope-grid {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+
+    .scope-visual {
+        height: 140px;
+    }
+
+    .scope-card h3 {
+        font-size: 1rem;
+    }
+
+    .scope-card li {
+        font-size: 0.9rem;
+    }
+
+    .scope-boundary {
+        font-size: 0.9rem;
+        margin-top: 40px;
+    }
+}
+
+   /* ===============================
+   SECTION 4: 3% PERFORMANCE DEAL
+================================ */
+
+.enterprise-pricing {
+    background: #fff;
+    padding: 90px 5%;
+}
+
+.enterprise-pricing h2 {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: #111;
+}
+
+.enterprise-pricing .pricing-intro {
+    text-align: center;
+    max-width: 720px;
+    margin: 0 auto 60px;
+    font-size: 1.05rem;
+    color: #444;
+}
+
+/* Visual steps grid */
+.pricing-visual-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 36px;
+    max-width: 1100px;
+    margin: auto;
+}
+
+/* Card */
+.pricing-card {
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 0.2rem;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.pricing-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+}
+
+.pricing-card.highlight {
+    border: 2px solid #000;
+}
+
+/* Image area — FULL IMAGE, NO CROPPING */
+.pricing-visual {
+    width: 100%;
+    aspect-ratio: 16 / 9; /* Controls height while keeping full image */
+    background: #f2f2f2;
+    display: flex;
+    align-items: center;
     justify-content: center;
 }
 
-.enterprise-image img {
+.pricing-visual img {
     width: 100%;
-    max-width: 520px;
-    border-radius: 12px;
-    object-fit: cover;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    height: 100%;
+    object-fit: contain; /* KEY: show full image */
+    display: block;
 }
 
-/* Section styling reused */
-.enterprise-section {
-    padding: 80px 5%;
+/* Text OUTSIDE image */
+.pricing-text {
+    padding: 22px 22px 26px;
+    text-align: center;
+}
+
+.pricing-text h3 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: #111;
+}
+
+.pricing-text p {
+    font-size: 1.05rem;
+    color: #333;
+    line-height: 1.5;
+}
+
+/* Math box */
+.pricing-math {
+    max-width: 520px;
+    margin: 70px auto 30px;
+    border: 1px solid #ddd;
+    border-radius: 0.2rem;
+    background: #fafafa;
+    padding: 24px 26px;
+}
+
+.math-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.05rem;
+    margin-bottom: 12px;
+    color: #222;
+}
+
+.math-row.total {
+    font-weight: 700;
+    border-top: 1px solid #ddd;
+    padding-top: 12px;
+}
+
+/* Footer note */
+.pricing-note {
+    text-align: center;
+    font-size: 1.05rem;
+    color: #222;
+    max-width: 720px;
+    margin: 40px auto 0;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    .enterprise-pricing {
+        padding: 60px 5%;
+    }
+
+    .enterprise-pricing h2 {
+        font-size: 1.1rem;
+    }
+
+    .enterprise-pricing .pricing-intro {
+        font-size: 0.9rem;
+        margin-bottom: 30px;
+    }
+
+    .pricing-visual-grid {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+
+    .pricing-visual {
+        aspect-ratio: 4 / 3; /* Taller on mobile */
+    }
+
+    .pricing-text h3 {
+        font-size: 1rem;
+    }
+
+    .pricing-text p {
+        font-size: 0.9rem;
+    }
+
+    .pricing-math {
+        font-size: 0.9rem;
+        padding: 20px;
+    }
+
+    .pricing-note {
+        font-size: 0.9rem;
+    }
+}
+/* ===============================
+   SECTION 5: TRUST & CONTROL
+================================ */
+
+.enterprise-trust {
+    background: #fff;
+    padding: 90px 5%;
+}
+
+/* Heading */
+.enterprise-trust h2 {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: #111;
+}
+
+.enterprise-trust .trust-intro {
+    text-align: center;
+    max-width: 720px;
+    margin: 0 auto 60px;
+    font-size: 1.05rem;
+    color: #444;
+}
+
+/* Grid */
+.trust-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
     max-width: 1200px;
     margin: auto;
 }
 
-.enterprise-section h2 {
+/* Card – TALLER */
+.trust-card {
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 0.2rem;
+    padding: 24px;
+    text-align: center;
+    min-height: 420px; /* ⬅ forces taller cards */
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.trust-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 22px rgba(0,0,0,0.06);
+}
+
+/* Image container – MUCH TALLER */
+.trust-visual {
+    width: 100%;
+    height: 240px; /* ⬅ increased height */
+    border-radius: 0.2rem;
+    overflow: hidden;
+    margin-bottom: 18px;
+    background: #f6f6f6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Image – SHOW FULL IMAGE */
+.trust-visual img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* ⬅ THIS is what shows full image */
+    display: block;
+}
+
+/* Titles */
+.trust-card h3 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: #111;
+}
+
+/* Text */
+.trust-card p {
+    font-size: 1rem;
+    color: #333;
+    line-height: 1.45;
+    margin-top: auto; /* ⬅ pushes text nicely downward */
+}
+
+/* Tablet */
+@media (max-width: 900px) {
+    .trust-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 24px;
+    }
+
+    .trust-card {
+        min-height: 400px;
+    }
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+    .enterprise-trust {
+        padding: 60px 5%;
+    }
+
+    .enterprise-trust h2 {
+        font-size: 1.1rem;
+    }
+
+    .enterprise-trust .trust-intro {
+        font-size: 0.9rem;
+        margin-bottom: 35px;
+    }
+
+    .trust-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .trust-card {
+        min-height: 360px;
+    }
+
+    .trust-visual {
+        height: 200px;
+    }
+
+    .trust-card h3 {
+        font-size: 1rem;
+    }
+
+    .trust-card p {
+        font-size: 0.9rem;
+    }
+}
+
+
+
+/* ===============================
+   SECTION 6: INDUSTRIES
+================================ */
+
+.enterprise-industries {
+    background: #fff;
+    padding: 90px 5%;
+}
+
+.enterprise-industries h2 {
+    text-align: center;
     font-size: 2rem;
     font-weight: 700;
-    color: #000;
-    margin-bottom: 18px;
+    margin-bottom: 12px;
+    color: #111;
 }
 
-.enterprise-section p {
-    font-size: 1.07rem;
-    line-height: 1.65;
+.industries-intro {
+    text-align: center;
+    max-width: 720px;
+    margin: 0 auto 60px;
+    font-size: 1.05rem;
+    color: #444;
+}
+
+/* Slider */
+.industry-slider {
+    position: relative;
+    max-width: 1000px;
+    margin: auto;
+    overflow: hidden;
+}
+
+.industry-track {
+    display: flex;
+    transition: transform 0.6s ease;
+}
+
+/* Slide */
+.industry-slide {
+    min-width: 100%;
+    display: flex;
+    gap: 40px;
+    align-items: center;
+}
+
+/* Image */
+.industry-visual {
+    flex: 1;
+    height: 320px;
+    border-radius: 0.2rem;
+    overflow: hidden;
+    background: #eee;
+}
+
+.industry-visual img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Text */
+.industry-text {
+    flex: 1;
+}
+
+.industry-text h3 {
+    font-size: 1.6rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: #111;
+}
+
+.industry-text p {
+    font-size: 1.05rem;
+    line-height: 1.6;
     color: #333;
-    margin-bottom: 20px;
 }
 
-/* Responsive adjustments */
-@media (max-width: 900px) {
-    .enterprise-hero {
+/* Navigation */
+.industry-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: #000;
+    color: #fff;
+    border: none;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 22px;
+    z-index: 10;
+}
+
+.industry-nav.prev {
+    left: -20px;
+}
+
+.industry-nav.next {
+    right: -20px;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    .industry-slide {
         flex-direction: column;
         text-align: center;
-        padding: 50px 5%;
-        gap: 30px;
     }
 
-    .enterprise-text h1 {
-        font-size: 1.9rem;
+    .industry-visual {
+        height: 220px;
     }
 
-    .enterprise-image img {
-        max-width: 90%;
+    .industry-text h3 {
+        font-size: 1.1rem;
     }
 
-    .enterprise-section {
-        padding: 50px 5%;
+    .industry-text p {
+        font-size: 0.9rem;
     }
 
-    .enterprise-section h2 {
-        font-size: 1.6rem;
+    .industry-nav {
+        display: none;
     }
 }
+
+
+/* ===============================
+   FINAL ENTERPRISE CTA (PLAIN)
+================================ */
+
+.enterprise-final-cta {
+    background: #fff;
+    color: #111;
+    padding: 100px 5%;
+    text-align: center;
+    border-top: 1px solid #eee;
+}
+
+.enterprise-final-cta h2 {
+    font-size: 2.2rem;
+    font-weight: 700;
+    margin-bottom: 18px;
+    color: #111;
+}
+
+.final-cta-text {
+    max-width: 720px;
+    margin: 0 auto 45px;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #444;
+}
+
+/* CTA buttons */
+.final-cta-actions {
+    display: flex;
+    justify-content: center;
+    gap: 18px;
+    flex-wrap: wrap;
+}
+
+.cta-primary {
+    background: #000;
+    color: #fff;
+    border: none;
+    padding: 15px 34px;
+    font-size: 1rem;
+    font-weight: 700;
+    border-radius: 0.2rem;
+    cursor: pointer;
+    transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.cta-primary:hover {
+    background: #222;
+    transform: translateY(-2px);
+}
+
+.cta-secondary {
+    background: #fff;
+    color: #111;
+    border: 1px solid #ccc;
+    padding: 15px 34px;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 0.2rem;
+    cursor: pointer;
+    transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.cta-secondary:hover {
+    background: #f9f9f9;
+    border-color: #999;
+}
+
+/* Footer note */
+.final-cta-note {
+    margin-top: 30px;
+    font-size: 0.95rem;
+    color: #666;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    .enterprise-final-cta {
+        padding: 70px 5%;
+    }
+
+    .enterprise-final-cta h2 {
+        font-size: 1.4rem;
+    }
+
+    .final-cta-text {
+        font-size: 0.95rem;
+        margin-bottom: 30px;
+    }
+
+    .cta-primary,
+    .cta-secondary {
+        width: 100%;
+        max-width: 320px;
+        font-size: 0.9rem;
+        padding: 14px 20px;
+    }
+}
+
+
+
 </style>
 {% endblock %}
 
 {% block content %}
 
-<section id="intro" class="enterprise-hero">
-  <div class="enterprise-text">
-    <h1>At Scale, Complexity Becomes the Enemy</h1>
-    <p>
-      Large organizations move fast — but their data often doesn’t.
-      Information gets trapped in silos, reports arrive too late,
-      and leaders make decisions without the full picture. That’s
-      where <strong>Inxource Enterprise</strong> comes in. We connect,
-      clean, and centralize your data — giving you a live, panoramic
-      view of your business on one intelligent screen.
-    </p>
-  </div>
-  <div class="enterprise-image">
-    <img src="{{ url_for('static', filename='images/pipeline.webp') }}"
-         alt="Enterprise data dashboard">
-  </div>
+<!-- ENTERPRISE HERO -->
+<section class="enterprise-hero">
+    <div class="section-container">
+
+        <!-- TEXT -->
+        <div class="text">
+
+            <!-- SLIDE 1 -->
+            <div class="hero-slide active">
+                <h1>We build and run your online sales systems.</h1>
+                <div class="hero-lines">
+                    <p>Online ordering, payments, and customer tracking</p>
+                    <p>Built for high-volume organizations</p>
+                </div>
+            </div>
+
+            <!-- SLIDE 2 -->
+            <div class="hero-slide">
+                <h1>We only earn when you make sales.</h1>
+                <div class="hero-lines">
+                    <p>No setup fees. No maintenance fees.</p>
+                    <p>Just <strong>3% of sales processed</strong></p>
+                </div>
+            </div>
+
+            <!-- SLIDE 3 -->
+            <div class="hero-slide">
+                <h1>Low risk. Clear ownership. Long-term partnership.</h1>
+                <div class="hero-lines">
+                    <p>You own your domain and third-party services</p>
+                    <p>We maintain and improve the sales systems</p>
+                </div>
+            </div>
+
+            <button class="cta">
+                Apply for Enterprise Partnership
+            </button>
+
+        </div>
+
+        <!-- IMAGES -->
+        <div class="enterprise-carousel">
+            <div class="track">
+                <!-- PLACEHOLDERS -->
+                <img src="{{ url_for('static', filename='images/enterprsie hero image one.png') }}" alt="Online sales system">
+                <img src="{{ url_for('static', filename='images/enterprsie hero image two.png') }}" alt="Sales analytics dashboard">
+                <img src="{{ url_for('static', filename='images/enterprise hero image three.png') }}" alt="Enterprise system overview">
+            </div>
+        </div>
+
+    </div>
+</section>
+<!-- WHO THIS IS FOR -->
+<section id="enterprise-fit" class="enterprise-fit">
+    <div class="container">
+
+        <h2>Who This Enterprise Partnership Is For</h2>
+        <p class="fit-intro">
+            This is a long-term sales systems partnership — not a general software service.
+        </p>
+
+        <div class="fit-grid">
+
+            <!-- GOOD FIT -->
+            <div class="fit-card good-fit">
+                <h3>Designed For</h3>
+                <ul>
+                    <li>High-volume businesses with regular customer transactions</li>
+                    <li>Organizations selling products, services, or subscriptions online</li>
+                    <li>Companies that want one partner for customer & sales systems</li>
+                    <li>Teams that prefer performance-based pricing over software fees</li>
+                    <li>Businesses planning for long-term growth, not quick experiments</li>
+                </ul>
+            </div>
+
+            <!-- NOT A FIT -->
+            <div class="fit-card not-fit">
+                <h3>Not Designed For</h3>
+                <ul>
+                    <li>General software development or unrelated systems</li>
+                    <li>Internal tools not connected to customers or sales</li>
+                    <li>One-off projects with no long-term commitment</li>
+                    <li>Hardware, robotics, or non-digital products</li>
+                    <li>Businesses unwilling to route sales through the system</li>
+                </ul>
+            </div>
+
+        </div>
+
+    </div>
 </section>
 
-<section id="problem" class="enterprise-section">
-  <h2>The Challenge of Scale</h2>
-  <p>
-    The bigger a business grows, the harder it becomes to see it clearly.
-    Sales data lives in one system, inventory in another, finance somewhere else,
-    and operations somewhere in between. Teams work hard, but insights are delayed.
-    Problems grow quietly — until they’re too big to ignore.
-  </p>
-  <p>
-    Every decision-maker knows the frustration: endless spreadsheets, disconnected
-    dashboards, inconsistent metrics. You know something’s wrong, but not where to look first.
-    Data is supposed to bring clarity, not chaos.
-  </p>
+<!-- WHAT WE HANDLE -->
+<section id="enterprise-scope" class="enterprise-scope">
+    <div class="container">
+
+        <h2>What We Handle — And What We Don’t</h2>
+        <p class="scope-intro">
+            Our responsibility is limited, intentional, and focused on customers, sales, and revenue data.
+        </p>
+
+        <div class="scope-grid">
+
+            <!-- CARD 1 -->
+            <div class="scope-card">
+                <div class="scope-visual">
+                    <img src="{{ url_for('static', filename='images/what we handle image one.png') }}"
+                         alt="Online sales systems">
+                </div>
+                <h3>Online Sales Systems</h3>
+                <ul>
+                    <li>Online stores & ordering portals</li>
+                    <li>Bookings & subscriptions (where applicable)</li>
+                    <li>Checkout & payment flows</li>
+                </ul>
+            </div>
+
+            <!-- CARD 2 -->
+            <div class="scope-card">
+                <div class="scope-visual">
+                    <img src="{{ url_for('static', filename='images/what we handle image two.png') }}"
+                         alt="Customer and transaction tracking">
+                </div>
+                <h3>Customers & Transactions</h3>
+                <ul>
+                    <li>Customer order history</li>
+                    <li>Transaction records & confirmations</li>
+                    <li>Sales activity tracking</li>
+                </ul>
+            </div>
+
+            <!-- CARD 3 -->
+            <div class="scope-card">
+                <div class="scope-visual">
+                    <img src="{{ url_for('static', filename='images/what we handle image three.png') }}"
+                         alt="Sales and customer analytics">
+                </div>
+                <h3>Data, Analytics & Reporting</h3>
+                <ul>
+                    <li>Sales performance analysis</li>
+                    <li>Customer behavior & trends</li>
+                    <li>Revenue, volume & growth reports</li>
+                    <li>Exportable reports for management</li>
+                </ul>
+            </div>
+
+        </div>
+
+        <div class="scope-boundary">
+            <strong>Boundary:</strong><br>
+            We only build, maintain, and analyze systems related to customers, sales, and revenue data.
+            Anything outside this scope is not included in the enterprise partnership.
+        </div>
+
+    </div>
 </section>
 
-<section id="solution" class="enterprise-section">
-  <h2>One Connected Pipeline. One Clear View.</h2>
-  <p>
-    Inxource builds intelligent data pipelines that connect your entire business —
-    from finance to logistics, HR to operations — into a single, unified ecosystem.
-    We don’t just integrate systems; we create structure, flow, and foresight.
-  </p>
-  <p>
-    Every department becomes visible in real time. Our advanced data mapping tools
-    clean, organize, and visualize your information in a way that makes sense.
-    You can monitor KPIs, forecast trends, and pinpoint inefficiencies before they turn into losses.
-    All on one dashboard.
-  </p>
-  <div class="enterprise-image">
-    <img src="{{ url_for('static', filename='images/software_pipeline.webp') }}"
-         alt="Illustration showing a seamless data pipeline">
-  </div>
+<!-- SECTION 4: 3% PERFORMANCE DEAL -->
+<section id="enterprise-pricing" class="enterprise-pricing">
+    <div class="container">
+
+        <!-- SECTION HEADING -->
+        <h2>How the 3% Performance Deal Works</h2>
+        <p class="pricing-intro">
+            Our incentives are aligned with your revenue. If you don’t sell, we don’t earn.
+        </p>
+
+        <!-- VISUAL STEPS -->
+        <div class="pricing-visual-grid">
+
+            <!-- STEP 1 -->
+            <div class="pricing-card">
+                <div class="pricing-visual">
+                    <img src="{{ url_for('static', filename='images/3% image one.jpeg') }}"
+                         alt="Orders flowing into system">
+                </div>
+                <div class="pricing-text">
+                    <h3>Customers Place Orders</h3>
+                    <p>
+                        Orders come through your online store, booking system, or checkout flow.
+                    </p>
+                </div>
+            </div>
+
+            <!-- STEP 2 -->
+            <div class="pricing-card highlight">
+                <div class="pricing-visual">
+                    <img src="{{ url_for('static', filename='images/3% image two.jpeg') }}"
+                         alt="Sales being processed">
+                </div>
+                <div class="pricing-text">
+                    <h3>Sales Are Processed</h3>
+                    <p>
+                        All transactions are recorded, tracked, and reflected in your sales dashboard.
+                    </p>
+                </div>
+            </div>
+
+            <!-- STEP 3 -->
+            <div class="pricing-card">
+                <div class="pricing-visual">
+                    <img src="{{ url_for('static', filename='images/3% image three.jpeg') }}"
+                         alt="3 percent commission illustration">
+                </div>
+                <div class="pricing-text">
+                    <h3>We Earn 3%</h3>
+                    <p>
+                        At month-end, we charge <strong>3% of total sales processed</strong>. Nothing else.
+                    </p>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- SIMPLE MATH -->
+        <div class="pricing-math">
+            <div class="math-row">
+                <span>Total Sales</span>
+                <span>K 100,000</span>
+            </div>
+            <div class="math-row">
+                <span>InXource (3%)</span>
+                <span>K 3,000</span>
+            </div>
+            <div class="math-row total">
+                <span>You Keep</span>
+                <span>K 97,000</span>
+            </div>
+        </div>
+
+        <!-- FOOTNOTE -->
+        <div class="pricing-note">
+            <strong>No setup fees.</strong> No subscriptions. No maintenance charges.<br>
+            If there are no sales, there is no fee.
+        </div>
+
+    </div>
 </section>
 
-<section id="philosophy" class="enterprise-section">
-  <h2>An Easier Way — Our Philosophy</h2>
-  <p>
-    At Inxource, simplicity is our highest form of innovation. We believe that data
-    should empower, not overwhelm. That’s why our mission — and our motto — is simple:
-    <strong>“An easier way.”</strong>
-  </p>
-  <p>
-    We design enterprise systems that don’t just deliver data but deliver understanding.
-    Dashboards that anticipate your questions before you ask. Analytics that highlight
-    patterns before they become problems. Reports that explain themselves, in plain language.
-  </p>
-  <p>
-    Because real intelligence isn’t about more data — it’s about clearer insight.
-  </p>
+<!-- SECTION 5: TRUST & CONTROL -->
+<section id="enterprise-trust" class="enterprise-trust">
+    <div class="container">
+
+        <h2>You Stay in Control. Always.</h2>
+        <p class="trust-intro">
+            We grow when you grow. Everything else stays in your hands.
+        </p>
+
+        <div class="trust-grid">
+
+            <!-- ITEM 1 -->
+            <div class="trust-card">
+                <div class="trust-visual">
+                    <img src="{{ url_for('static', filename='images/trust us image one.jpeg') }}"
+                         alt="Your data ownership">
+                </div>
+                <h3>Your Data Is Yours</h3>
+                <p>Export your sales and customer data anytime. No restrictions.</p>
+            </div>
+
+            <!-- ITEM 2 -->
+            <div class="trust-card">
+                <div class="trust-visual">
+                    <img src="{{ url_for('static', filename='images/trust us image two.jpeg') }}"
+                         alt="No lock-in">
+                </div>
+                <h3>No Lock-In</h3>
+                <p>Use InXource for as long as it makes sense. Stop anytime.</p>
+            </div>
+
+            <!-- ITEM 3 -->
+            <div class="trust-card">
+                <div class="trust-visual">
+                    <img src="{{ url_for('static', filename='images/trust us image three.jpeg') }}"
+                         alt="Asset ownership">
+                </div>
+                <h3>You Own the Assets</h3>
+                <p>Your domain, brand, customers, and systems remain yours.</p>
+            </div>
+
+            <!-- ITEM 4 -->
+            <div class="trust-card">
+                <div class="trust-visual">
+                    <img src="{{ url_for('static', filename='images/trust us image four.jpeg') }}"
+                         alt="Transparent billing">
+                </div>
+                <h3>Transparent Billing</h3>
+                <p>See your numbers clearly before any 3% charge is applied.</p>
+            </div>
+
+        </div>
+    </div>
 </section>
 
-<section id="impact" class="enterprise-section">
-  <h2>Seeing Before It Happens</h2>
-  <p>
-    Our clients use Inxource to transform the way they operate. From spotting sales dips
-    before quarterly reports, to predicting inventory shortages weeks in advance — the advantage
-    lies in anticipation.
-  </p>
-  <p>
-    With our advanced data infrastructure and predictive analytics, leaders can act, not react.
-    You’ll know what’s slowing performance, what’s driving growth, and what’s quietly draining
-    resources — all before it reaches the boardroom.
-  </p>
+<!-- SECTION 6: INDUSTRIES -->
+<section id="enterprise-industries" class="enterprise-industries">
+    <div class="container">
+
+        <h2>Industries Where InXource Works Best</h2>
+        <p class="industries-intro">
+            We focus on customer-facing businesses where sales, bookings, and repeat customers matter.
+        </p>
+
+        <!-- SLIDER -->
+        <div class="industry-slider">
+
+            <button class="industry-nav prev">‹</button>
+            <button class="industry-nav next">›</button>
+
+            <div class="industry-track">
+
+                <!-- SLIDE 1: SALONS & BARBERS -->
+                <div class="industry-slide active">
+                    <div class="industry-visual">
+                        <img src="{{ url_for('static', filename='images/industries image one.jpeg') }}"
+                             alt="Salon and barber shop">
+                    </div>
+                    <div class="industry-text">
+                        <h3>Salons & Barber Shops</h3>
+                        <p>
+                            We build a booking website where clients book time slots online,
+                            track repeat customers, and manage daily sales in one place.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- SLIDE 2: BARS & LOUNGES -->
+                <div class="industry-slide">
+                    <div class="industry-visual">
+                        <img src="{{ url_for('static', filename='images/industries image two.jpeg') }}"
+                             alt="Bar and lounge">
+                    </div>
+                    <div class="industry-text">
+                        <h3>Bars & Lounges</h3>
+                        <p>
+                            Track daily sales, popular items, and peak hours.
+                            Accept online reservations and payments where needed.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- SLIDE 3: CLOTHING & JEWELRY -->
+                <div class="industry-slide">
+                    <div class="industry-visual">
+                        <img src="{{ url_for('static', filename='images/industries image 5.jpeg') }}"
+                             alt="Clothing and jewelry store">
+                    </div>
+                    <div class="industry-text">
+                        <h3>Clothing & Jewelry Stores</h3>
+                        <p>
+                            We create an online catalogue where customers browse products,
+                            place orders, and pay online — while you track sales and customers.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- SLIDE 4: FOOD BUSINESSES -->
+                <div class="industry-slide">
+                    <div class="industry-visual">
+                        <img src="{{ url_for('static', filename='images/industries image three.jpeg') }}"
+                             alt="Food business">
+                    </div>
+                    <div class="industry-text">
+                        <h3>Food Businesses & Restaurants</h3>
+                        <p>
+                            We build mobile-friendly ordering systems so customers reorder easily,
+                            while you monitor sales, repeat orders, and peak demand.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- SLIDE 5: SERVICES & INSTITUTIONS -->
+                <div class="industry-slide">
+                    <div class="industry-visual">
+                        <img src="{{ url_for('static', filename='images/industries image four.jpeg') }}"
+                             alt="Service business">
+                    </div>
+                    <div class="industry-text">
+                        <h3>Service Businesses & Institutions</h3>
+                        <p>
+                            From schools to service providers, we manage customer records,
+                            payments, reporting, and analytics tied directly to sales.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
 </section>
 
-<section id="cta" class="enterprise-section" style="text-align: center; padding: 100px 5% 120px 5%;">
-  <div class="container">
-    <h2>Design a Smarter Data Ecosystem</h2>
-    <p style="margin-top: 20px; font-size: 1.05rem; color: #333; max-width: 700px; margin-left: auto; margin-right: auto;">
-      Let’s build the system that helps you see everything — clearly, intelligently, and in real time.
-    </p>
-    <button class="cta-submit"
-            onclick="window.open('{{ whatsapp_link }}', '_blank')"
-            style="background: #000; color: #fff; border: none; padding: 15px 40px; font-size: 18px; border-radius: 6px; cursor: pointer; margin-top: 30px;">
-      Talk to Our Enterprise Team
-    </button>
-  </div>
+
+<!-- FINAL SECTION: ENTERPRISE CTA -->
+<section id="enterprise-final-cta" class="enterprise-final-cta">
+    <div class="container">
+
+        <h2>Let’s Build Your Sales System</h2>
+
+        <p class="final-cta-text">
+            If your business sells at scale, we’ll design the right system —
+            and only earn when it performs.
+        </p>
+
+        <div class="final-cta-actions">
+            <button class="cta-primary"
+                onclick="window.open('{{ whatsapp_link }}','_blank')">
+                Talk to the Enterprise Team
+            </button>
+
+            <button class="cta-secondary"
+                onclick="window.open('mailto:enterprise@inxource.com')">
+                Apply for Enterprise Access
+            </button>
+        </div>
+
+        <p class="final-cta-note">
+            No setup fees • No subscriptions • 3% only when you sell
+        </p>
+
+    </div>
 </section>
+
+
+
+<!-- HERO JS -->
+<script>
+(function () {
+    const slides = document.querySelectorAll('.hero-slide');
+    const track = document.querySelector('.enterprise-carousel .track');
+    let index = 0;
+
+    setInterval(() => {
+        slides.forEach(s => s.classList.remove('active'));
+        slides[index].classList.add('active');
+
+        track.style.transform = `translateX(-${index * 100}%)`;
+
+        index = (index + 1) % slides.length;
+    }, 6000);
+})();
+
+
+ const track = document.querySelector('.industry-track');
+    const slides = document.querySelectorAll('.industry-slide');
+    const nextBtn = document.querySelector('.industry-nav.next');
+    const prevBtn = document.querySelector('.industry-nav.prev');
+
+    let index = 0;
+
+    function updateSlide() {
+        track.style.transform = `translateX(-${index * 100}%)`;
+    }
+
+    nextBtn.addEventListener('click', () => {
+        index = (index + 1) % slides.length;
+        updateSlide();
+    });
+
+    prevBtn.addEventListener('click', () => {
+        index = (index - 1 + slides.length) % slides.length;
+        updateSlide();
+    });
+
+    // Auto slide every 5 seconds
+    setInterval(() => {
+        index = (index + 1) % slides.length;
+        updateSlide();
+    }, 5000);
+</script>
 
 {% endblock %}
