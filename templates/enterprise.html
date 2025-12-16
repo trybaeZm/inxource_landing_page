@@ -912,6 +912,163 @@
 }
 
 
+/* ===============================
+   ENTERPRISE MODAL (RESPONSIVE)
+================================ */
+
+.enterprise-modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.65);
+    z-index: 9999;
+
+    /* Flex center */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
+}
+
+/* Modal box */
+.enterprise-modal-content {
+    background: #ffffff;
+    width: 100%;
+    max-width: 480px;
+    border-radius: 16px;
+    padding: 28px 26px;
+    position: relative;
+
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+
+    animation: modalFadeIn 0.25s ease;
+}
+
+/* Heading */
+.enterprise-modal-content h3 {
+    font-size: 1.35rem;
+    margin-bottom: 6px;
+    color: #111;
+}
+
+/* Subtext */
+.enterprise-modal-content p {
+    font-size: 0.95rem;
+    color: #555;
+    margin-bottom: 18px;
+}
+
+/* Inputs */
+.enterprise-modal-content input,
+.enterprise-modal-content textarea {
+    width: 100%;
+    padding: 14px 14px;
+    margin-bottom: 14px;
+
+    font-size: 0.95rem;
+    border-radius: 10px;
+    border: 1px solid #d0d0d0;
+
+    outline: none;
+    transition: border 0.2s ease, box-shadow 0.2s ease;
+}
+
+.enterprise-modal-content textarea {
+    min-height: 110px;
+    resize: vertical;
+}
+
+/* Focus state */
+.enterprise-modal-content input:focus,
+.enterprise-modal-content textarea:focus {
+    border-color: #000;
+    box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.08);
+}
+
+/* Submit button */
+.enterprise-modal-content .cta-primary {
+    width: 100%;
+    padding: 14px;
+    font-size: 1rem;
+    border-radius: 10px;
+}
+
+/* Close button */
+.close-modal {
+    position: absolute;
+    top: 16px;
+    right: 18px;
+    font-size: 22px;
+    cursor: pointer;
+    color: #777;
+}
+
+.close-modal:hover {
+    color: #000;
+}
+
+/* Status message */
+.form-status {
+    margin-top: 12px;
+    font-size: 0.9rem;
+    text-align: center;
+}
+
+/* ===============================
+   MOBILE OPTIMIZATION
+================================ */
+
+@media (max-width: 480px) {
+    .enterprise-modal-content {
+        padding: 22px 20px;
+        border-radius: 14px;
+    }
+
+    .enterprise-modal-content h3 {
+        font-size: 1.2rem;
+    }
+
+    .enterprise-modal-content p {
+        font-size: 0.9rem;
+    }
+}
+
+/* ===============================
+   TABLETS
+================================ */
+
+@media (min-width: 481px) and (max-width: 768px) {
+    .enterprise-modal-content {
+        max-width: 520px;
+    }
+}
+
+/* ===============================
+   LARGE SCREENS
+================================ */
+
+@media (min-width: 1200px) {
+    .enterprise-modal-content {
+        max-width: 540px;
+    }
+}
+
+/* ===============================
+   ANIMATION
+================================ */
+
+@keyframes modalFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 
 </style>
 {% endblock %}
@@ -1323,15 +1480,14 @@
         </p>
 
         <div class="final-cta-actions">
-            <button class="cta-primary"
-                onclick="window.open('{{ whatsapp_link }}','_blank')">
+            <button class="cta-primary" onclick="openWhatsApp()">
                 Talk to the Enterprise Team
             </button>
 
-            <button class="cta-secondary"
-                onclick="window.open('mailto:enterprise@inxource.com')">
+            <button class="cta-secondary" onclick="openEnterpriseModal()">
                 Apply for Enterprise Access
             </button>
+
         </div>
 
         <p class="final-cta-note">
@@ -1341,6 +1497,28 @@
     </div>
 </section>
 
+<!--pop up email-->
+<div id="enterpriseModal" class="enterprise-modal">
+    <div class="enterprise-modal-content">
+        <span class="close-modal" onclick="closeEnterpriseModal()">×</span>
+
+        <h3>Apply for Enterprise Access</h3>
+        <p>Tell us about your business and our enterprise team will reach out.</p>
+
+        <form id="enterpriseForm">
+            <input type="text" name="companyName" placeholder="Company name" required>
+            <input type="email" name="emailAddress" placeholder="Business email" required>
+            <input type="tel" name="phoneNumber" placeholder="Phone number" required>
+            <textarea name="message" placeholder="Tell us about your business" required></textarea>
+
+            <button type="submit" class="cta-primary">
+                Submit Application
+            </button>
+
+            <p id="enterpriseStatus" class="form-status"></p>
+        </form>
+    </div>
+</div>
 
 
 <!-- HERO JS -->
@@ -1387,6 +1565,50 @@
         index = (index + 1) % slides.length;
         updateSlide();
     }, 5000);
+
+    function openWhatsApp() {
+    window.open(
+        'https://wa.me/260770885485?text=Hello%20InXource%2C%20I%27d%20like%20to%20talk%20to%20you%20about%20my%20business',
+        '_blank'
+    );
+}
+
+
+
+function openEnterpriseModal() {
+    document.getElementById("enterpriseModal").style.display = "flex";
+}
+
+function closeEnterpriseModal() {
+    document.getElementById("enterpriseModal").style.display = "none";
+}
+
+document.getElementById("enterpriseForm").addEventListener("submit", async function(e) {
+    e.preventDefault();
+
+    const status = document.getElementById("enterpriseStatus");
+    status.textContent = "Sending…";
+
+    const formData = new FormData(this);
+
+    try {
+        const response = await fetch("/send_mail", {
+            method: "POST",
+            body: formData
+        });
+
+        const result = await response.json();
+
+        if (result.status === "success") {
+            status.textContent = "Application sent successfully!";
+            this.reset();
+        } else {
+            status.textContent = result.message || "Something went wrong.";
+        }
+    } catch (err) {
+        status.textContent = "Failed to send. Please try again.";
+    }
+});
 </script>
 
 {% endblock %}
