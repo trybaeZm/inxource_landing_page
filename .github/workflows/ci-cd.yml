@@ -1,14 +1,10 @@
-name: CI/CD Pipeline
+name: Remote SSH Deployment (Consolidated CI/CD)
 
 on:
   push:
-    branches:
-      - main
-      - main-prime
+    branches: [ main-prime ]
   pull_request:
-    branches:
-      - main
-      - main-prime
+    branches: [ main-prime ]
 
 jobs:
   check:
