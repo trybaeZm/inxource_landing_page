@@ -1,0 +1,83 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+      - main-prime
+  pull_request:
+    branches:
+      - main
+      - main-prime
+
+jobs:
+  check:
+    name: Lint and Build
+    runs-on: ubuntu-latest
+    
+    # This sets the base directory for all 'run' commands in this job
+    defaults:
+      run:
+        working-directory: ./new_site
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup PNPM
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'pnpm'
+          # Required so the cache logic knows where to find pnpm-lock.yaml
+          cache-dependency-path: ./new_site/pnpm-lock.yaml
+
+      - name: Install Dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build Project
+        env:
+          NODE_OPTIONS: "--max-old-space-size=4096"
+        run: pnpm run build
+
+  deploy:
+    name: Deploy to VPS
+    needs: check
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main-prime'
+    runs-on: ubuntu-latest
+    steps:
+      - name: SSH and Update VPS
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.REMOTE_HOST }}
+          username: ${{ secrets.REMOTE_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            # 1. Navigate to project
+            cd /root/inxource_landing_page
+            
+            # 2. Pull latest code
+            git fetch origin main-prime
+            git reset --hard origin/main-prime
+            
+            # 3. Load Node/NVM environment (Ensures pnpm/pm2 are in the PATH)
+            export NVM_DIR="$HOME/.nvm"
+            [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+
+            #4. Navigate to new_site
+            cd new_site
+            
+            # 5. Install and Build with 4GB RAM limit
+            export NODE_OPTIONS="--max-old-space-size=4096"
+            npm install -g pnpm
+            pnpm install
+            pnpm run build
+            
+            # 6. Restart apps (reload is better than stop/start as it reduces downtime)
+            pm2 restart landing-page
+            pm2 save
