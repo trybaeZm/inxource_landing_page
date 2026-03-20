@@ -71,8 +71,8 @@ export default function Home() {
               Get the direction you need to <span className="text-red-600">boost your sales.</span>
             </h2>
             <p className="text-lg text-zinc-600 leading-relaxed">
-              Inxource helps you see what's going on in your shop so you know what needs attention,
-              what's slowing you down, and where to put your effort to make more money.
+              Inxource helps you see what&apos;s going on in your shop so you know what needs attention,
+              what&apos;s slowing you down, and where to put your effort to make more money.
             </p>
           </motion.div>
 
@@ -127,7 +127,7 @@ export default function Home() {
                 To move forward, you first need to <span className="text-red-500">see where you are.</span>
               </h2>
               <p className="text-lg text-zinc-400 leading-relaxed mb-10">
-                Inxource helps you spot what's working, what's not, and what's slowing down your sales. Get a bird's-eye view of your business from anywhere.
+                Inxource helps you spot what&apos;s working, what&apos;s not, and what&apos;s slowing down your sales. Get a bird&apos;s-eye view of your business from anywhere.
               </p>
 
               <div className="space-y-6">
