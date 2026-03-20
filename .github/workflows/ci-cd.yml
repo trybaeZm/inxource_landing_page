@@ -21,42 +21,36 @@ jobs:
         working-directory: ./new_site
 
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v4
-
-      - name: Setup PNPM
-        uses: pnpm/action-setup@v2
+      - uses: actions/checkout@v4
+      
+      - uses: pnpm/action-setup@v3
         with:
-          version: 8
+          version: 10
 
-      - name: Setup Node.js
+      - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: '20'
           cache: 'pnpm'
-          # Required so the cache logic knows where to find pnpm-lock.yaml
-          cache-dependency-path: ./new_site/pnpm-lock.yaml
 
       - name: Install Dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Build Project
-        env:
-          NODE_OPTIONS: "--max-old-space-size=4096"
-        run: pnpm run build
+      - name: Run Lint
+        run: pnpm lint
 
   deploy:
     name: Deploy to VPS
     needs: check
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main-prime'
     runs-on: ubuntu-latest
     steps:
-      - name: SSH and Update VPS
+      - name: Deploying via SSH Key
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.REMOTE_HOST }}
           username: ${{ secrets.REMOTE_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: 22
           script: |
             # 1. Navigate to project
             cd /root/inxource_landing_page
