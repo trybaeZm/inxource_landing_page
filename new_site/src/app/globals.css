@@ -1,0 +1,107 @@
+@import "tailwindcss";
+
+@theme {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-primary-overlay: var(--primary-overlay);
+  --color-border-main: var(--border-main);
+  --color-inx-red: #ea1b2c;
+  --color-inx-red-dark: #cc1826;
+
+  --font-sans: var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+  --font-inter: var(--font-inter);
+  --font-display: var(--font-inter);
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+
+/* Explicitly define dark variant for Tailwind v4 class-based support */
+@variant dark (&:where(.dark, .dark *));
+
+:root {
+  --background: #ffffff;
+  --foreground: #09090b;
+  --primary-overlay: rgba(0, 0, 0, 0.05);
+  --border-main: rgba(0, 0, 0, 0.1);
+  --inx-red: #ea1b2c;
+  --inx-red-dark: #cc1826;
+  color-scheme: light;
+}
+
+.dark,
+[data-theme='dark'] {
+  --background: #09090b;
+  --foreground: #ffffff;
+  --primary-overlay: rgba(255, 255, 255, 0.03);
+  --border-main: rgba(255, 255, 255, 0.1);
+  color-scheme: dark;
+}
+
+@layer base {
+  * {
+    border-color: var(--border-main);
+  }
+
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-sans);
+    transition: background-color 0.3s ease, color 0.3s ease;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+  }
+}
+
+/* Branding & Custom Components */
+.bw-button {
+  @apply bg-foreground text-background font-semibold tracking-normal text-sm transition-all duration-300 hover:opacity-90 rounded-xl px-6 py-3;
+}
+
+.bw-card {
+  @apply bg-primary-overlay border border-border-main;
+}
+
+.red-button {
+  @apply bg-inx-red hover:bg-inx-red-dark text-white font-semibold tracking-normal text-sm transition-all duration-300 rounded-xl px-6 py-3 shadow-[0_0_40px_-10px_rgba(234,27,44,0.3)];
+}
+
+/* Animated gradient hero - custom extension */
+.gradient-hero-dark {
+  position: relative;
+  overflow: hidden;
+  background: radial-gradient(1200px 600px at -10% -10%, rgba(234,27,44,.25), transparent 60%),
+              radial-gradient(1200px 800px at 110% 10%, rgba(255,255,255,.05), transparent 55%),
+              linear-gradient(120deg, #09090b, #111113 40%, #09090b 80%);
+}
+
+/* Scrollbar styling for brutalist feel */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--background);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--foreground);
+  border-radius: 0;
+}
+
+/* Layout Containers & Utilities */
+.layout-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.font-display {
+  font-family: var(--font-display);
+}
