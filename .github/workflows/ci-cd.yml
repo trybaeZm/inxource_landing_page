@@ -51,18 +51,32 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: 22
           script: |
+            # 1. Load NVM and fix the PATH for this session
+            export NVM_DIR="$HOME/.nvm"
+            [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
             
-            # 3. Navigate to project
+            # This line finds exactly where 'node' is and adds its folder to the PATH
+            # It's the "magic fix" for the 'command not found' errors
+            export PATH=$(dirname $(which node)):$PATH
+            
+            # 2. Navigate to project
             cd /root/inxource_landing_page
             
-            # 4. Sync Git
-            git pull origin main
+            # 3. Sync Git
+            git fetch origin main
+            git reset --hard origin/main
             
-            # 5. Build in the site directory
+            # 4. Build in the site directory
             cd new_site
-            pnpm install
-            pnpm build
+            
+            # Memory safety for VPS builds
+            export NODE_OPTIONS="--max-old-space-size=4096"
+            
+            # 5. Install and Build
+            pnpm install --frozen-lockfile
+            pnpm run build
             
             # 6. Restart via PM2
+            # We use 'reload' for zero-downtime
             pm2 reload landing-page || pm2 start "pnpm start" --name "landing-page"
             pm2 save
