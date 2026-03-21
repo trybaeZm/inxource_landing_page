@@ -51,25 +51,20 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: 22
           script: |
-            # 1. Load NVM and fix the PATH for this session
-            export NVM_DIR="$HOME/.nvm"
-            [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+            # 1. Manually inject the FNM and PNPM paths
+            # This points to the permanent fnm installation and the pnpm global bin
+            export PATH="/root/.local/share/fnm:/root/.local/share/pnpm:$PATH"
             
-            # This line finds exactly where 'node' is and adds its folder to the PATH
-            # It's the "magic fix" for the 'command not found' errors
-            export PATH=$(dirname $(which node)):$PATH
+            # 2. Re-initialize fnm for this session
+            eval "$(fnm env --use-on-cd)"
             
-            # 2. Navigate to project
+            # 3. Navigate to project
             cd /root/inxource_landing_page
-            
-            # 3. Sync Git
             git fetch origin main
             git reset --hard origin/main
             
             # 4. Build in the site directory
             cd new_site
-            
-            # Memory safety for VPS builds
             export NODE_OPTIONS="--max-old-space-size=4096"
             
             # 5. Install and Build
@@ -77,6 +72,5 @@ jobs:
             pnpm run build
             
             # 6. Restart via PM2
-            # We use 'reload' for zero-downtime
             pm2 reload landing-page || pm2 start "pnpm start" --name "landing-page"
             pm2 save
