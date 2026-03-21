@@ -2,9 +2,9 @@ name: Remote SSH Deployment (Consolidated CI/CD)
 
 on:
   push:
-    branches: [ main-prime ]
+    branches: [ main ]
   pull_request:
-    branches: [ main-prime ]
+    branches: [ main ]
 
 jobs:
   check:
