@@ -59,8 +59,8 @@ jobs:
             cd /root/inxource_landing_page
             
             # 3. Pull latest code
-            git fetch origin main-prime
-            git reset --hard origin/main-prime
+            git fetch origin main
+            git reset --hard origin/main
             
             # 4. Navigate to the actual site directory
             cd new_site
