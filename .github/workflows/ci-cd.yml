@@ -51,30 +51,35 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: 22
           script: |
-            # 1. Load Node/NVM environment (CRITICAL for SSH actions)
+            # 1. Force load NVM and export the Path
             export NVM_DIR="$HOME/.nvm"
             [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
             
-            # 2. Navigate to project root
+            # 2. MANUALLY INJECT NODE PATH (This is the missing link)
+            # This finds your current node version bin folder and adds it to PATH
+            export PATH="$NVM_DIR/versions/node/$(nvm current)/bin:$PATH"
+            
+            # 3. Navigate to project
             cd /root/inxource_landing_page
             
-            # 3. Pull latest code
+            # 4. Sync Git
             git fetch origin main
             git reset --hard origin/main
             
-            # 4. Navigate to the actual site directory
+            # 5. Build in the site directory
             cd new_site
-            
-            # 5. Build with memory safety
             export NODE_OPTIONS="--max-old-space-size=4096"
             
-            # Only install pnpm if it's missing
-            command -v pnpm >/dev/null 2>&1 || npm install -g pnpm
-            
+            # Use 'command -v' check but with the updated PATH
+            if ! command -v pnpm &> /dev/null; then
+              npm install -g pnpm
+            fi
+
             pnpm install --frozen-lockfile
             pnpm run build
             
-            # 6. Zero-downtime reload
-            # If the process isn't running yet, it will fallback to start
-            pm2 reload landing-page || pm2 start "pnpm start" --name "landing-page"
+            # 6. Restart via PM2
+            # We use the full path to pnpm to ensure PM2 starts the right command
+            PNPM_BIN=$(command -v pnpm)
+            pm2 reload landing-page || pm2 start "$PNPM_BIN start" --name "landing-page"
             pm2 save
