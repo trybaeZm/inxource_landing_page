@@ -51,35 +51,18 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: 22
           script: |
-            # 1. Force load NVM and export the Path
-            export NVM_DIR="$HOME/.nvm"
-            [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-            
-            # 2. MANUALLY INJECT NODE PATH (This is the missing link)
-            # This finds your current node version bin folder and adds it to PATH
-            export PATH="$NVM_DIR/versions/node/$(nvm current)/bin:$PATH"
             
             # 3. Navigate to project
             cd /root/inxource_landing_page
             
             # 4. Sync Git
-            git fetch origin main
-            git reset --hard origin/main
+            git pull origin main
             
             # 5. Build in the site directory
             cd new_site
-            export NODE_OPTIONS="--max-old-space-size=4096"
-            
-            # Use 'command -v' check but with the updated PATH
-            if ! command -v pnpm &> /dev/null; then
-              npm install -g pnpm
-            fi
-
-            pnpm install --frozen-lockfile
-            pnpm run build
+            pnpm install
+            pnpm build
             
             # 6. Restart via PM2
-            # We use the full path to pnpm to ensure PM2 starts the right command
-            PNPM_BIN=$(command -v pnpm)
-            pm2 reload landing-page || pm2 start "$PNPM_BIN start" --name "landing-page"
+            pm2 reload landing-page || pm2 start "pnpm start" --name "landing-page"
             pm2 save
